@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'MyCustomFont'; /* You name it whatever you want */
+    src: url('fonts/myfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body
+{
+    height: 100vh;
+    background-color: #121212;
+    color: #fff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container
+{
+    background-color: #1e1e1e;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    width: 350px; /* You can adjust this */
+}
