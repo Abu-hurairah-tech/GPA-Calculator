@@ -1,32 +1,209 @@
-@font-face {
-    font-family: 'MyCustomFont'; /* You name it whatever you want */
-    src: url('fonts/myfont.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-*{
-    margin: 0;
-    padding: 0;
+body {
+  min-height: 100vh;
+  background-color: #121212;
+  color: #fff;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
-body
-{
-    height: 100vh;
-    background-color: #121212;
-    color: #fff;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.main-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0;
+  width: 100%;
+  max-width: 1100px;
 }
 
-.container
-{
-    background-color: #1e1e1e;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    text-align: center;
-    width: 350px; /* You can adjust this */
+.main-wrapper.active {
+  justify-content: space-between;
+}
+
+.main-wrapper.active .container {
+  transform: translateX(-80px); /* adjust if needed */
+}
+
+.container {
+  font-family: "Zain", sans-serif; /* Added sans-serif fallback */
+  background-color: #1e1e1e;
+  padding: 1.5rem; /* Slightly reduced padding */
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: 380px; /* Slightly wider to give inputs more room */
+  flex-shrink: 0;
+  /* These keep the card on screen */
+  max-height: 95vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  transition: all 0.8s ease;
+}
+
+/* Tightening up the groups */
+.input-group {
+  margin-bottom: 12px; /* Spacing between groups only */
+  margin-top: 15px;
+  padding: 0; /* Removed extra internal padding */
+  text-align: left; /* Keeps labels aligned to the left */
+}
+
+/* Making labels smaller so they don't take up 2 lines */
+label {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #bbb;
+  margin-left: 5px;
+}
+
+/* Reducing the gap between label and input */
+input,
+select {
+  margin-top: 5px; /* Reduced from 20px */
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #2a2a2a;
+  color: white;
+  border-radius: 8px;
+  border: 1px solid #444;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+#add-btn {
+  width: 70%;
+  padding: 15px;
+  margin: 20px;
+  background: linear-gradient(135deg, #ffcc00 0%, #ff9900 100%);
+  color: #121212; /* Dark text on bright button for contrast */
+  border: none;
+  border-radius: 8px;
+  font-family: "Zain", sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+input:hover,
+select:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border-color: #ffcc00;
+  transform: scale(1.02);
+  background-color: #333;
+}
+
+input:focus,
+select:focus {
+  border-color: #ffcc00;
+  box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+  transform: scale(1.02);
+}
+
+#add-btn:hover {
+  transform: translateY(-3px); /* Subtle lift up */
+  box-shadow: 0 5px 15px rgba(255, 204, 0, 0.4); /* Golden glow */
+  filter: brightness(1.1); /* Makes it slightly more vibrant */
+}
+
+#add-btn:active {
+  transform: translateY(1px); /* Pushes down when clicked */
+}
+
+.result {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #252525; /* Slightly lighter than the main container */
+  border-radius: 10px;
+  border-left: 5px solid #ffcc00; /* A nice accent border on the side */
+}
+
+.result h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #bbb; /* Muted color for the label */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#gpa-score {
+  display: block; /* Puts the number on a new line */
+  font-size: 3rem; /* Make it massive! */
+  font-weight: bold;
+  color: #ffcc00;
+  text-shadow: 0 0 10px rgba(255, 204, 0, 0.3); /* Soft golden glow */
+  margin-top: 5px;
+}
+
+.table-section {
+  flex: 0; /* Take no space initially */
+  max-width: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.8s ease-in-out;
+  overflow: hidden;
+}
+
+#subjects-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid #333;
+  flex: 1;
+  max-width: 600px;
+}
+
+.main-wrapper.active .table-section {
+  flex: 1.5; /* Grow to take space */
+  width: auto;
+  max-width: 650px;
+  opacity: 1;
+  visibility: visible;
+  margin-left: 40px;
+}
+
+/* #subjects-table thead {
+    background: linear-gradient(135deg, #ffcc00 0%, #ff9900 100%);
+    color: #121212;
+} */
+
+#subjects-table th {
+  background: linear-gradient(135deg, #ffcc00 0%, #ff9900 100%);
+  color: #121212;
+  padding: 18px;
+  font-family: "Zain", sans-serif;
+  text-transform: uppercase;
+}
+
+#subjects-table td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #333;
+  font-family: "Zain", sans-serif;
+  font-size: 1.1rem;
+}
+
+#subjects-table tr:hover {
+  background-color: #252525; /* Subtle highlight when hovering over a row */
+}
+
+#subjects-table tr:last-child td {
+  border-bottom: none;
 }

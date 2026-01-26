@@ -7,8 +7,65 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
-      <h1>GPA Calculator</h1>
+    <div class="main-wrapper">
+      <div class="container">
+        <h1>GPA Calculator</h1>
+        <form id="gpa-form">
+          <div class="input-group">
+            <label for="subject">Subject Name:</label>
+            <input
+              type="text"
+              id="subject"
+              placeholder="Data Structures"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <label for="grade">Grade:</label>
+            <select name="dropdown" id="grade" required>
+              Grade
+              <option value="" disabled selected>Select Grade:</option>
+              <option value="4.0">A</option>
+              <option value="3.7">A-</option>
+              <option value="3.3">B+</option>
+              <option value="3.0">B</option>
+              <option value="2.7">B-</option>
+              <option value="2.3">C+</option>
+              <option value="2.0">C</option>
+              <option value="1.7">C-</option>
+              <option value="1.0">D</option>
+              <option value="0.0">F</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="cHours">Credit Hours:</label>
+            <input
+              type="number"
+              id="cHours"
+              min="1"
+              max="4"
+              placeholder="2"
+              required
+            />
+          </div>
+          <button type="button" id="add-btn">Add Subject</button>
+        </form>
+        <div class="result">
+          <h3>Current GPA: <span id="gpa-score">0.00</span></h3>
+        </div>
+      </div>
+      <div class="table-section">
+        <table id="subjects-table">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Grade</th>
+              <th>Credit Hours</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
     </div>
     <script src="script.js"></script>
   </body>
