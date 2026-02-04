@@ -61,23 +61,47 @@ function calculateGPA() {
 
 function updateTable() {
   const wrapper = document.querySelector(".main-wrapper");
+  const tableBody = document.getElementById("table-body");
 
+  if (subjects.length === 0) {
+    wrapper.classList.remove("active");
+    tableBody.innerHTML = "";
+    return;
+  }
   // Only trigger the active class if we actually have subjects
   if (subjects.length > 0) {
     wrapper.classList.add("active");
   }
-
-  const tableBody = document.getElementById("table-body");
+  
   tableBody.innerHTML = "";
 
-  subjects.forEach((s) => {
+  subjects.forEach((s, index) => {
     const row = `
             <tr>
                 <td>${s.subjectName}</td>
                 <td>${s.grade}</td>
                 <td>${s.creditHours}</td>
+                <td>
+                    <button class="delete-btn" onclick="deleteSubject(${index})">X</button>
+                </td>
             </tr>
         `;
     tableBody.innerHTML += row;
   });
+}
+
+function deleteSubject(index) {
+  // 1. Remove the subject from our array
+  subjects.splice(index, 1);
+
+  // 2. Recalculate everything
+  calculateGPA();
+
+  // 3. Update the UI
+  updateTable();
+
+  // 4. Special Case: Reset GPA to 0.00 if empty
+  if (subjects.length === 0) {
+    gpaDisplay.innerText = "0.00";
+  }
 }
